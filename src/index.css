@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --e-global-color-primary: #ff00a7;
+  --e-global-color-6d2919e: #ffffff;
+  --color-primary: #ff00a7;
+  --color-primary-light: #ff33b8;
+  --color-primary-dark: #cc0085;
+  --color-primary-50: #fff0f9;
+  --e-global-typography-099385a-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --e-global-typography-099385a-font-size: 16px;
+  --e-global-typography-099385a-font-weight: 500;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Livvic', sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-099385a-font-family), Sans-serif;
+  font-size: 16px;
+  font-weight: var(--e-global-typography-099385a-font-weight);
+  fill: #FFFFFF;
+  color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: var(--e-global-color-primary);
+  border-radius: 9999px;
+  padding: 14px 20px 14px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--e-global-color-6d2919e);
+  font-family: var(--e-global-typography-099385a-font-family), Sans-serif;
+  font-size: 16px;
+  font-weight: var(--e-global-typography-099385a-font-weight);
+  fill: var(--e-global-color-primary);
+  color: var(--e-global-color-primary);
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: var(--e-global-color-primary);
+  border-radius: 9999px;
+  padding: 14px 20px 14px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #f3f4f6;
+}
+
+.btn-secondary:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
