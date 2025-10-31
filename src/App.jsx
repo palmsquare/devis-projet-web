@@ -300,7 +300,7 @@ function App() {
         </div>
 
         {/* Carte principale */}
-        <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
           {/* En-tête de l'étape */}
           <div className="p-6" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)' }}>
             <div className="flex items-center gap-3 text-white">
@@ -373,7 +373,7 @@ function App() {
         </div>
 
         {/* Affichage du total */}
-        <div className="mt-6 animate-fade-in" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="mt-6 animate-fade-in" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <DollarSign className="w-8 h-8" style={{ color: '#ff00a7' }} />
@@ -498,7 +498,8 @@ function ProjetStep({ formData, updateFormData, goToNext }) {
               padding: '16px',
               borderRadius: '8px',
               border: '1px solid #FFFFFF17',
-              backgroundColor: '#FFFFFF'
+              backgroundColor: '#FFFFFF',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
             }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
@@ -972,7 +973,7 @@ function RecapStep({ formData, pricing, onBack, onSubmit, isSending }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-        <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
           {/* En-tête */}
           <div className="p-6 mb-4" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)', borderRadius: '8px' }}>
             <div className="flex items-center gap-3 text-white">
@@ -1073,7 +1074,7 @@ function ThankYouPage({ pricing, formData }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
-        <div className="overflow-hidden text-center" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="overflow-hidden text-center" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
           <div className="mb-6">
             <CheckCircle2 className="w-20 h-20 mx-auto mb-4" style={{ color: '#ff00a7' }} />
           </div>
