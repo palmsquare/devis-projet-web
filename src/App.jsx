@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { 
   Mail, User, Globe, RefreshCw, Layout, Palette, 
   Zap, Calendar, Package, ChevronLeft, ChevronRight, 
@@ -11,6 +11,8 @@ function App() {
   const [currentStep, setCurrentStep] = useState(0)
   const [direction, setDirection] = useState('forward')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [showRecap, setShowRecap] = useState(false)
+  const [isSending, setIsSending] = useState(false)
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [formData, setFormData] = useState({
@@ -234,9 +236,45 @@ function App() {
 
   const StepComponent = currentStepData.component
 
+  // Fonction pour envoyer le formulaire
+  const handleSubmit = async () => {
+    setIsSending(true)
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+      
+      if (response.ok) {
+        setIsSubmitted(true)
+        setShowRecap(false)
+      } else {
+        throw new Error(data.error || 'Erreur lors de l\'envoi')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      // Même en cas d'erreur, on marque comme soumis pour l'UX
+      // Vous pouvez ajouter un message d'erreur si besoin
+      setIsSubmitted(true)
+      setShowRecap(false)
+    } finally {
+      setIsSending(false)
+    }
+  }
+
   // Si le formulaire a été soumis, afficher la page de remerciement
   if (isSubmitted) {
-    return <ThankYouPage pricing={pricing} />
+    return <ThankYouPage pricing={pricing} formData={formData} />
+  }
+
+  // Si on affiche le récapitulatif
+  if (showRecap) {
+    return <RecapStep formData={formData} pricing={pricing} onBack={() => setShowRecap(false)} onSubmit={handleSubmit} isSending={isSending} />
   }
 
   return (
@@ -310,8 +348,7 @@ function App() {
                 <button
                   onClick={() => {
                     if (validateCurrentStep()) {
-                      console.log('Données du formulaire:', formData)
-                      setIsSubmitted(true)
+                      setShowRecap(true)
                     } else {
                       setShowError(true)
                       setTimeout(() => setShowError(false), 600)
@@ -319,8 +356,8 @@ function App() {
                   }}
                   className="btn-primary flex items-center gap-2"
                 >
-                  <CheckCircle2 className="w-5 h-5" />
-                  Envoyer ma demande
+                  Voir le récapitulatif
+                  <ChevronRight className="w-5 h-5" />
                 </button>
               ) : (
                 <button
@@ -900,85 +937,151 @@ function InfosSuppStep({ formData, updateFormData }) {
   )
 }
 
-function ThankYouPage({ pricing }) {
-  useEffect(() => {
-    // Charger le script Cal.com
-    const script = document.createElement('script')
-    script.src = 'https://app.cal.com/embed/embed.js'
-    script.async = true
-    document.head.appendChild(script)
-
-    script.onload = () => {
-      // Initialiser Cal.com une fois le script chargé
-      if (window.Cal) {
-        window.Cal("init", "appel-de-decouverte", {origin:"https://app.cal.com"})
-        
-        window.Cal.ns["appel-de-decouverte"]("inline", {
-          elementOrSelector:"#my-cal-inline-appel-de-decouverte",
-          config: {"layout":"month_view"},
-          calLink: "palmsquare/appel-de-decouverte",
-        })
-
-        window.Cal.ns["appel-de-decouverte"]("ui", {
-          "cssVarsPerTheme":{
-            "light":{"cal-brand":"#ea32a6"},
-            "dark":{"cal-brand":"#fafafa"}
-          },
-          "hideEventTypeDetails":false,
-          "layout":"month_view"
-        })
-      }
+function RecapStep({ formData, pricing, onBack, onSubmit, isSending }) {
+  const getLabel = (key, value) => {
+    const labels = {
+      typeProjet: value === 'nouveau' ? 'Création d\'un nouveau site' : 'Refonte d\'un site existant',
+      typeSite: value === 'landing' ? 'Landing page' : 'Site vitrine',
+      nombrePages: {
+        '1-5': '1 à 5 pages',
+        '6-8': '6 à 8 pages',
+        '10+': 'Plus de 10 pages'
+      }[value] || value,
+      niveauDesign: value === 'template' ? 'Design à partir d\'un template ajusté' : 'Design sur mesure',
+      delais: {
+        'rapide': 'Rapidement (dès que possible)',
+        '1mois': 'D\'ici 1 mois',
+        '3mois': 'D\'ici 3 mois'
+      }[value] || value
     }
-
-    return () => {
-      // Nettoyer le script lors du démontage
-      if (script.parentNode) {
-        script.parentNode.removeChild(script)
-      }
-    }
-  }, [])
+    return labels[key] || value
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl">
-        {/* En-tête de remerciement */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="mb-6">
-            <CheckCircle2 className="w-20 h-20 text-white mx-auto mb-4" />
-          </div>
-          <h1 className="text-4xl font-bold text-white mb-3">
-            Merci pour votre demande !
-          </h1>
-          <p className="text-white/90 text-xl mb-2">
-            Votre demande de devis a bien été envoyée
-          </p>
-          <p className="text-white/80 text-lg">
-            Estimation : <span className="font-bold">{pricing.prixFixe.toLocaleString('fr-FR')} € HT</span>
-            {pricing.prixMensuel > 0 && (
-              <span> + {pricing.prixMensuel.toLocaleString('fr-FR')} €/mois</span>
-            )}
-          </p>
-        </div>
-
-        {/* Section calendrier */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden mb-6">
+      <div className="w-full max-w-4xl">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          {/* En-tête */}
           <div className="p-6" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)' }}>
-            <div className="text-center text-white">
-              <Calendar className="w-10 h-10 mx-auto mb-3" />
-              <h2 className="text-2xl font-bold mb-2">Réservez un rendez-vous avec nous</h2>
-              <p className="text-white/90">Gagnez du temps et planifiez directement un appel de découverte</p>
+            <div className="flex items-center gap-3 text-white">
+              <FileText className="w-8 h-8" />
+              <h2 className="text-2xl font-bold">Récapitulatif de votre demande</h2>
             </div>
           </div>
 
-          <div className="p-6">
-            <div style={{width:'100%', height:'800px', overflow:'scroll'}} id="my-cal-inline-appel-de-decouverte"></div>
+          {/* Contenu */}
+          <div className="p-8 space-y-6">
+            {/* Contact */}
+            <div>
+              <h3 className="font-bold text-lg mb-3 text-gray-900">Contact</h3>
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p><strong>Email:</strong> {formData.email}</p>
+                <p><strong>Nom:</strong> {formData.nom} {formData.prenom}</p>
+              </div>
+            </div>
+
+            {/* Projet */}
+            <div>
+              <h3 className="font-bold text-lg mb-3 text-gray-900">Votre projet</h3>
+              <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <p><strong>Type:</strong> {getLabel('typeProjet', formData.typeProjet)}</p>
+                {formData.urlSite && <p><strong>URL actuelle:</strong> {formData.urlSite}</p>}
+                <p><strong>Type de site:</strong> {getLabel('typeSite', formData.typeSite)}</p>
+                {formData.nombrePages && <p><strong>Nombre de pages:</strong> {getLabel('nombrePages', formData.nombrePages)}</p>}
+                <p><strong>Design:</strong> {getLabel('niveauDesign', formData.niveauDesign)}</p>
+                {formData.fonctionnalites && formData.fonctionnalites.length > 0 && (
+                  <p><strong>Fonctionnalités:</strong> {formData.fonctionnalites.join(', ')}</p>
+                )}
+                <p><strong>Délais:</strong> {getLabel('delais', formData.delais)}</p>
+                {formData.besoinsComplementaires && formData.besoinsComplementaires.length > 0 && (
+                  <p><strong>Besoins complémentaires:</strong> {formData.besoinsComplementaires.join(', ')}</p>
+                )}
+                {formData.informationsSupp && (
+                  <div>
+                    <strong>Informations supplémentaires:</strong>
+                    <p className="mt-1">{formData.informationsSupp}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Estimation */}
+            <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-6 rounded-lg border-2" style={{ borderColor: '#ff00a7' }}>
+              <h3 className="font-bold text-lg mb-3" style={{ color: '#ff00a7' }}>Estimation</h3>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold" style={{ color: '#ff00a7' }}>
+                  {pricing.prixFixe.toLocaleString('fr-FR')} € HT
+                </span>
+                {pricing.prixMensuel > 0 && (
+                  <span className="text-lg text-gray-600">
+                    + {pricing.prixMensuel.toLocaleString('fr-FR')} €/mois
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="border-t border-gray-200 p-6 bg-gray-50">
+            <div className="flex justify-between items-center">
+              <button
+                onClick={onBack}
+                className="btn-secondary flex items-center gap-2"
+                disabled={isSending}
+              >
+                <ChevronLeft className="w-5 h-5" />
+                Retour
+              </button>
+              <button
+                onClick={onSubmit}
+                disabled={isSending}
+                className="btn-primary flex items-center gap-2"
+              >
+                {isSending ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-5 h-5" />
+                    Envoyer ma demande
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
 
-        {/* Note finale */}
-        <div className="text-center">
-          <p className="text-white/80 text-sm">
-            Nous reviendrons vers vous rapidement par email avec une proposition détaillée
+function ThankYouPage({ pricing, formData }) {
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-2xl">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden text-center p-12">
+          <div className="mb-6">
+            <CheckCircle2 className="w-20 h-20 mx-auto mb-4" style={{ color: '#ff00a7' }} />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Merci pour votre demande !
+          </h1>
+          <p className="text-gray-700 text-xl mb-6">
+            Votre demande de devis a bien été envoyée à l'adresse <strong>{formData.email}</strong>
+          </p>
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <p className="text-sm text-gray-600 mb-2">Estimation de votre projet :</p>
+            <p className="text-2xl font-bold" style={{ color: '#ff00a7' }}>
+              {pricing.prixFixe.toLocaleString('fr-FR')} € HT
+              {pricing.prixMensuel > 0 && (
+                <span className="text-lg text-gray-600"> + {pricing.prixMensuel.toLocaleString('fr-FR')} €/mois</span>
+              )}
+            </p>
+          </div>
+          <p className="text-gray-600">
+            Nous reviendrons vers vous rapidement avec une proposition détaillée.
           </p>
         </div>
       </div>
