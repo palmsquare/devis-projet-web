@@ -479,11 +479,24 @@ function ProjetStep({ formData, updateFormData, goToNext }) {
           <button
             key={option.value}
             onClick={() => handleSelection(option.value)}
-            className="transition-all hover:scale-105 border-2 border-gray-200"
+            className="transition-all hover:scale-105 border rounded-lg"
             style={{
               padding: '16px',
               borderRadius: '8px',
-              backgroundColor: '#FFFFFF'
+              backgroundColor: '#FFFFFF',
+              border: formData.typeProjet === option.value 
+                ? '1px solid rgba(255, 0, 167, 0.5)' 
+                : '1px solid #e5e7eb'
+            }}
+            onMouseEnter={(e) => {
+              if (formData.typeProjet !== option.value) {
+                e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (formData.typeProjet !== option.value) {
+                e.currentTarget.style.border = '1px solid #e5e7eb'
+              }
             }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
@@ -615,12 +628,24 @@ function NombrePagesStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('nombrePages', option.value)}
-            className="w-full transition-all hover:scale-102 text-left"
+            className="w-full transition-all hover:scale-102 text-left border rounded-lg"
             style={{
               padding: '16px',
               borderRadius: '8px',
-              border: '1px solid #FFFFFF17',
-              backgroundColor: '#ffffff85'
+              backgroundColor: '#FFFFFF',
+              border: formData.nombrePages === option.value 
+                ? '1px solid rgba(255, 0, 167, 0.5)' 
+                : '1px solid #e5e7eb'
+            }}
+            onMouseEnter={(e) => {
+              if (formData.nombrePages !== option.value) {
+                e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (formData.nombrePages !== option.value) {
+                e.currentTarget.style.border = '1px solid #e5e7eb'
+              }
             }}
           >
             <div className="flex items-start gap-4">
@@ -799,12 +824,24 @@ function DelaisStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('delais', option.value)}
-            className="w-full transition-all hover:scale-102"
+            className="w-full transition-all hover:scale-102 border rounded-lg"
             style={{
               padding: '16px',
               borderRadius: '8px',
-              border: '1px solid #FFFFFF17',
-              backgroundColor: '#ffffff85'
+              backgroundColor: '#FFFFFF',
+              border: formData.delais === option.value 
+                ? '1px solid rgba(255, 0, 167, 0.5)' 
+                : '1px solid #e5e7eb'
+            }}
+            onMouseEnter={(e) => {
+              if (formData.delais !== option.value) {
+                e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (formData.delais !== option.value) {
+                e.currentTarget.style.border = '1px solid #e5e7eb'
+              }
             }}
           >
             <div className="flex items-center gap-4">
