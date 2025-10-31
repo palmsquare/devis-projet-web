@@ -562,12 +562,24 @@ function TypeSiteStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('typeSite', option.value)}
-            className="transition-all hover:scale-105"
+            className="transition-all hover:scale-105 border rounded-lg"
             style={{
               padding: '16px',
               borderRadius: '8px',
-              border: '1px solid #FFFFFF17',
-              backgroundColor: '#ffffff85'
+              backgroundColor: '#FFFFFF',
+              border: formData.typeSite === option.value 
+                ? '1px solid rgba(255, 0, 167, 0.5)' 
+                : '1px solid #e5e7eb'
+            }}
+            onMouseEnter={(e) => {
+              if (formData.typeSite !== option.value) {
+                e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (formData.typeSite !== option.value) {
+                e.currentTarget.style.border = '1px solid #e5e7eb'
+              }
             }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
@@ -697,12 +709,24 @@ function DesignStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('niveauDesign', option.value)}
-            className="transition-all hover:scale-105"
+            className="transition-all hover:scale-105 border rounded-lg"
             style={{
               padding: '16px',
               borderRadius: '8px',
-              border: '1px solid #FFFFFF17',
-              backgroundColor: '#ffffff85'
+              backgroundColor: '#FFFFFF',
+              border: formData.niveauDesign === option.value 
+                ? '1px solid rgba(255, 0, 167, 0.5)' 
+                : '1px solid #e5e7eb'
+            }}
+            onMouseEnter={(e) => {
+              if (formData.niveauDesign !== option.value) {
+                e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (formData.niveauDesign !== option.value) {
+                e.currentTarget.style.border = '1px solid #e5e7eb'
+              }
             }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
