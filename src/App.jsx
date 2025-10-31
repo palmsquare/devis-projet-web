@@ -1146,7 +1146,7 @@ function ThankYouPage({ pricing, formData, onBack }) {
             Merci pour votre demande !
           </h1>
           <p className="text-gray-700 text-xl mb-6">
-            Votre demande de devis a bien été envoyée à l'adresse <strong>{formData.email}</strong>
+            Votre demande de devis a bien été envoyée à notre équipe
           </p>
           <div className="bg-gray-50 p-6 rounded-lg mb-6">
             <p className="text-sm text-gray-600 mb-2">Estimation de votre projet :</p>
