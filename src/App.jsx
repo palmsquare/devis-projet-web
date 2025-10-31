@@ -301,32 +301,25 @@ function App() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-        {/* Indicateur de progression */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-gray-700 text-sm font-medium">
-              Étape {currentStep + 1} sur {activeSteps.length}
-            </span>
-            <span className="text-gray-700 text-sm font-medium">
-              {Math.round(((currentStep + 1) / activeSteps.length) * 100)}%
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-            <div 
-              className="h-full rounded-full transition-all duration-500 ease-out"
-              style={{ backgroundColor: '#ff00a7' }}
-              style={{ width: `${((currentStep + 1) / activeSteps.length) * 100}%` }}
-            />
-          </div>
-        </div>
-
         {/* Carte principale */}
         <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
           {/* En-tête de l'étape */}
           <div className="p-6" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)' }}>
-            <div className="flex items-center gap-3 text-white">
-              {currentStepData.icon && <currentStepData.icon className="w-8 h-8" />}
-              <h2 className="text-2xl font-bold">{currentStepData.title}</h2>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3 text-white">
+                {currentStepData.icon && <currentStepData.icon className="w-8 h-8" />}
+                <h2 className="text-2xl font-bold">{currentStepData.title}</h2>
+              </div>
+              <span className="text-white/90 text-sm font-medium">
+                {currentStep + 1}/{activeSteps.length}
+              </span>
+            </div>
+            {/* Barre de progression intégrée */}
+            <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
+              <div 
+                className="bg-white h-full rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${((currentStep + 1) / activeSteps.length) * 100}%` }}
+              />
             </div>
           </div>
 
