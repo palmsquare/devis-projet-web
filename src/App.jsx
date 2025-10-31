@@ -779,12 +779,24 @@ function FonctionnalitesStep({ formData, updateFormData }) {
             <button
               key={option.value}
               onClick={() => toggleFonctionnalite(option.value)}
-              className="transition-all hover:scale-105 text-left"
+              className="transition-all hover:scale-105 text-left border rounded-lg"
               style={{
                 padding: '16px',
                 borderRadius: '8px',
-                border: '1px solid #FFFFFF17',
-                backgroundColor: '#FFFFFF'
+                backgroundColor: '#FFFFFF',
+                border: isSelected
+                  ? '1px solid rgba(255, 0, 167, 0.5)' 
+                  : '1px solid #e5e7eb'
+              }}
+              onMouseEnter={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.border = '1px solid #e5e7eb'
+                }
               }}
             >
               <div className="flex items-start justify-between">
@@ -793,14 +805,14 @@ function FonctionnalitesStep({ formData, updateFormData }) {
                     isSelected ? 'text-gray-900' : 'text-gray-400'
                   }`} />
                   <div>
-                    <p className={`font-bold ${
+                    <p className={`font-bold text-sm mb-1 ${
                       isSelected ? 'text-gray-900' : 'text-gray-700'
                     }`}>
                       {option.label}
                     </p>
-                    <p className={`text-sm mt-1 ${
-                      option.price > 0 ? 'font-medium' : 'text-green-600'
-                    }`}>
+                    <p className={`text-sm mt-1 font-medium ${
+                      option.price > 0 ? '' : 'text-green-600'
+                    }`} style={option.price > 0 ? { color: '#ff00a7' } : {}}>
                       {option.price > 0 ? `+${option.price} €` : 'Inclus'}
                     </p>
                   </div>
@@ -923,11 +935,25 @@ function ComplementairesStep({ formData, updateFormData }) {
             <button
               key={option.value}
               onClick={() => toggleBesoin(option.value)}
-              className={`p-5 border-2 rounded-xl transition-all hover:scale-105 text-left ${
-                isSelected
-                  ? 'border-indigo-600 bg-indigo-50'
-                  : 'border-gray-200 hover:border-indigo-300'
-              }`}
+              className="transition-all hover:scale-105 text-left border rounded-lg"
+              style={{
+                padding: '16px',
+                borderRadius: '8px',
+                backgroundColor: '#FFFFFF',
+                border: isSelected
+                  ? '1px solid rgba(255, 0, 167, 0.5)' 
+                  : '1px solid #e5e7eb'
+              }}
+              onMouseEnter={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.border = '1px solid rgba(255, 0, 167, 0.3)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.border = '1px solid #e5e7eb'
+                }
+              }}
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-3">
