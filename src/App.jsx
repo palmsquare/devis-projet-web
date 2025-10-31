@@ -493,13 +493,11 @@ function ProjetStep({ formData, updateFormData, goToNext }) {
           <button
             key={option.value}
             onClick={() => handleSelection(option.value)}
-            className="transition-all hover:scale-105"
+            className="transition-all hover:scale-105 border-2 border-gray-200"
             style={{
               padding: '16px',
               borderRadius: '8px',
-              border: '1px solid #FFFFFF17',
-              backgroundColor: '#FFFFFF',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+              backgroundColor: '#FFFFFF'
             }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
