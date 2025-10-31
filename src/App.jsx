@@ -267,9 +267,30 @@ function App() {
     }
   }
 
+  // Fonction pour réinitialiser le formulaire
+  const resetForm = () => {
+    setIsSubmitted(false)
+    setShowRecap(false)
+    setCurrentStep(0)
+    setFormData({
+      email: '',
+      nom: '',
+      prenom: '',
+      typeProjet: '',
+      urlSite: '',
+      typeSite: '',
+      nombrePages: '',
+      niveauDesign: '',
+      fonctionnalites: [],
+      delais: '',
+      besoinsComplementaires: [],
+      informationsSupp: ''
+    })
+  }
+
   // Si le formulaire a été soumis, afficher la page de remerciement
   if (isSubmitted) {
-    return <ThankYouPage pricing={pricing} formData={formData} />
+    return <ThankYouPage pricing={pricing} formData={formData} onBack={resetForm} />
   }
 
   // Si on affiche le récapitulatif
@@ -1068,7 +1089,7 @@ function RecapStep({ formData, pricing, onBack, onSubmit, isSending }) {
   )
 }
 
-function ThankYouPage({ pricing, formData }) {
+function ThankYouPage({ pricing, formData, onBack }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
@@ -1091,9 +1112,20 @@ function ThankYouPage({ pricing, formData }) {
               )}
             </p>
           </div>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-6">
             Nous reviendrons vers vous rapidement avec une proposition détaillée.
           </p>
+          
+          {/* Bouton retour */}
+          <div className="border-t border-gray-200 pt-6 mt-6">
+            <button
+              onClick={onBack}
+              className="btn-secondary flex items-center gap-2 mx-auto"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              Revenir au formulaire
+            </button>
+          </div>
         </div>
       </div>
     </div>
