@@ -1042,7 +1042,7 @@ function RecapStep({ formData, pricing, onBack, onSubmit, isSending }) {
                 ) : (
                   <>
                     <CheckCircle2 className="w-5 h-5" />
-                    Envoyer ma demande
+                    Demander une estimation plus précise
                   </>
                 )}
               </button>
