@@ -392,41 +392,6 @@ function App() {
             </div>
           </div>
         </div>
-
-        {/* Affichage du total */}
-        <div className="mt-6 animate-fade-in" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <DollarSign className="w-8 h-8" style={{ color: '#ff00a7' }} />
-              <div>
-                <h3 className="font-bold text-gray-800 text-lg">Estimation du projet</h3>
-                <p className="text-sm text-gray-600">Mise à jour en temps réel</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold" style={{ color: '#ff00a7' }}>
-                  {pricing.prixFixe.toLocaleString('fr-FR')} €
-                </span>
-                {pricing.prixMensuel > 0 && (
-                  <span className="text-lg text-gray-600">
-                    + {pricing.prixMensuel.toLocaleString('fr-FR')} €/mois
-                  </span>
-                )}
-              </div>
-              <div className="text-sm text-gray-500 mt-1">
-                {pricing.prixMensuel > 0 ? (
-                  <>
-                    <span className="font-medium">Coût fixe:</span> {pricing.prixFixe.toLocaleString('fr-FR')} € • 
-                    <span className="font-medium ml-1">Mensuel:</span> {pricing.prixMensuel.toLocaleString('fr-FR')} €
-                  </>
-                ) : (
-                  <span className="font-medium">Coût fixe uniquement</span>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   )
