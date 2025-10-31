@@ -300,7 +300,7 @@ function App() {
         </div>
 
         {/* Carte principale */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="overflow-hidden" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           {/* En-tête de l'étape */}
           <div className="p-6" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)' }}>
             <div className="flex items-center gap-3 text-white">
@@ -373,7 +373,7 @@ function App() {
         </div>
 
         {/* Affichage du total */}
-        <div className="mt-6 bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+        <div className="mt-6 animate-fade-in" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <DollarSign className="w-8 h-8" style={{ color: '#ff00a7' }} />
@@ -493,11 +493,13 @@ function ProjetStep({ formData, updateFormData, goToNext }) {
           <button
             key={option.value}
             onClick={() => handleSelection(option.value)}
-            className={`p-6 border-2 rounded-xl transition-all hover:scale-105 ${
-              formData.typeProjet === option.value
-                ? 'border-gray-200'
-                : 'border-gray-200'
-            }`}
+            className="transition-all hover:scale-105"
+            style={{
+              padding: '16px',
+              borderRadius: '8px',
+              border: '1px solid #FFFFFF17',
+              backgroundColor: formData.typeProjet === option.value ? '#ffffff85' : '#ffffff85'
+            }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
                 formData.typeProjet === option.value ? 'text-gray-900' : 'text-gray-400'
@@ -562,11 +564,13 @@ function TypeSiteStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('typeSite', option.value)}
-            className={`p-6 border-2 rounded-xl transition-all hover:scale-105 ${
-              formData.typeSite === option.value
-                ? 'border-gray-200'
-                : 'border-gray-200'
-            }`}
+            className="transition-all hover:scale-105"
+            style={{
+              padding: '16px',
+              borderRadius: '8px',
+              border: '1px solid #FFFFFF17',
+              backgroundColor: '#ffffff85'
+            }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
               formData.typeSite === option.value ? 'text-gray-900' : 'text-gray-400'
@@ -626,11 +630,13 @@ function NombrePagesStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('nombrePages', option.value)}
-            className={`w-full p-5 border-2 rounded-xl transition-all hover:scale-102 text-left ${
-              formData.nombrePages === option.value
-                ? 'border-gray-200'
-                : 'border-gray-200'
-            }`}
+            className="w-full transition-all hover:scale-102 text-left"
+            style={{
+              padding: '16px',
+              borderRadius: '8px',
+              border: '1px solid #FFFFFF17',
+              backgroundColor: '#ffffff85'
+            }}
           >
             <div className="flex items-start gap-4">
               <option.icon className={`w-8 h-8 flex-shrink-0 ${
@@ -681,11 +687,13 @@ function DesignStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('niveauDesign', option.value)}
-            className={`p-6 border-2 rounded-xl transition-all hover:scale-105 ${
-              formData.niveauDesign === option.value
-                ? 'border-gray-200'
-                : 'border-gray-200'
-            }`}
+            className="transition-all hover:scale-105"
+            style={{
+              padding: '16px',
+              borderRadius: '8px',
+              border: '1px solid #FFFFFF17',
+              backgroundColor: '#ffffff85'
+            }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
               formData.niveauDesign === option.value ? 'text-gray-900' : 'text-gray-400'
@@ -804,11 +812,13 @@ function DelaisStep({ formData, updateFormData }) {
           <button
             key={option.value}
             onClick={() => updateFormData('delais', option.value)}
-            className={`w-full p-5 border-2 rounded-xl transition-all hover:scale-102 ${
-              formData.delais === option.value
-                ? 'border-gray-200'
-                : 'border-gray-200'
-            }`}
+            className="w-full transition-all hover:scale-102"
+            style={{
+              padding: '16px',
+              borderRadius: '8px',
+              border: '1px solid #FFFFFF17',
+              backgroundColor: '#ffffff85'
+            }}
           >
             <div className="flex items-center gap-4">
               <option.icon className={`w-10 h-10 ${
@@ -960,9 +970,9 @@ function RecapStep({ formData, pricing, onBack, onSubmit, isSending }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="overflow-hidden" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           {/* En-tête */}
-          <div className="p-6" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)' }}>
+          <div className="p-6 mb-4" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)', borderRadius: '8px' }}>
             <div className="flex items-center gap-3 text-white">
               <FileText className="w-8 h-8" />
               <h2 className="text-2xl font-bold">Récapitulatif de votre demande</h2>
@@ -1061,7 +1071,7 @@ function ThankYouPage({ pricing, formData }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden text-center p-12">
+        <div className="overflow-hidden text-center" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           <div className="mb-6">
             <CheckCircle2 className="w-20 h-20 mx-auto mb-4" style={{ color: '#ff00a7' }} />
           </div>
