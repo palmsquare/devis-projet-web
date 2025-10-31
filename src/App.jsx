@@ -300,7 +300,7 @@ function App() {
         </div>
 
         {/* Carte principale */}
-        <div className="overflow-hidden" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           {/* En-tête de l'étape */}
           <div className="p-6" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)' }}>
             <div className="flex items-center gap-3 text-white">
@@ -373,7 +373,7 @@ function App() {
         </div>
 
         {/* Affichage du total */}
-        <div className="mt-6 animate-fade-in" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="mt-6 animate-fade-in" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <DollarSign className="w-8 h-8" style={{ color: '#ff00a7' }} />
@@ -498,7 +498,7 @@ function ProjetStep({ formData, updateFormData, goToNext }) {
               padding: '16px',
               borderRadius: '8px',
               border: '1px solid #FFFFFF17',
-              backgroundColor: formData.typeProjet === option.value ? '#ffffff85' : '#ffffff85'
+              backgroundColor: '#FFFFFF'
             }}
           >
             <option.icon className={`w-12 h-12 mx-auto mb-3 ${
@@ -745,11 +745,13 @@ function FonctionnalitesStep({ formData, updateFormData }) {
             <button
               key={option.value}
               onClick={() => toggleFonctionnalite(option.value)}
-              className={`p-5 border-2 rounded-xl transition-all hover:scale-105 text-left ${
-                isSelected
-                  ? 'border-indigo-600 bg-indigo-50'
-                  : 'border-gray-200 hover:border-indigo-300'
-              }`}
+              className="transition-all hover:scale-105 text-left"
+              style={{
+                padding: '16px',
+                borderRadius: '8px',
+                border: '1px solid #FFFFFF17',
+                backgroundColor: '#FFFFFF'
+              }}
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-3">
@@ -970,7 +972,7 @@ function RecapStep({ formData, pricing, onBack, onSubmit, isSending }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-        <div className="overflow-hidden" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="overflow-hidden" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           {/* En-tête */}
           <div className="p-6 mb-4" style={{ background: 'linear-gradient(to right, #ff00a7, #ff33b8)', borderRadius: '8px' }}>
             <div className="flex items-center gap-3 text-white">
@@ -1071,7 +1073,7 @@ function ThankYouPage({ pricing, formData }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
-        <div className="overflow-hidden text-center" style={{ backgroundColor: '#ffffff85', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
+        <div className="overflow-hidden text-center" style={{ backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #FFFFFF17', padding: '16px' }}>
           <div className="mb-6">
             <CheckCircle2 className="w-20 h-20 mx-auto mb-4" style={{ color: '#ff00a7' }} />
           </div>
